@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:shopapp/components/loader.dart';
 import 'package:shopapp/utils/custom_theme.dart';
 
 class CustomButton extends StatelessWidget {
@@ -28,7 +29,7 @@ class CustomButton extends StatelessWidget {
           onPressed: loading ? null : onPress,
           child: Center(
             child: loading
-                ? const Text('loading')
+                ? const Loader()
                 : Text(
                     text,
                     style: const TextStyle(

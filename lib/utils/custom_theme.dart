@@ -20,6 +20,15 @@ class CustomTheme {
       offset: Offset(1, 3),
     ),
   ];
+
+  static getCardDecoration() {
+    return BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(35),
+      boxShadow: cardShadow,
+    );
+  }
+
   static ThemeData getTheme() {
     Map<String, double> fontsize = {
       "sm": 14,

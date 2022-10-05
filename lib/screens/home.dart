@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:shopapp/components/grid_card.dart';
+import 'package:shopapp/screens/login.dart';
+import 'package:shopapp/screens/product_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -12,6 +15,11 @@ class _HomeScreenState extends State<HomeScreen> {
   final data = ["1", "2"];
   @override
   Widget build(BuildContext context) {
+    onCardPress() {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const LoginScreen()));
+    }
+
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 5),
       padding: const EdgeInsets.symmetric(vertical: 20),
@@ -25,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
         itemBuilder: (BuildContext context, int index) {
           return GridCard(
             index: index,
-            onPress: () {},
+            onPress: onCardPress,
           );
         },
       ),
