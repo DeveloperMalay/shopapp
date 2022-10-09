@@ -1,10 +1,10 @@
-import 'package:flutter/cupertino.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:provider/provider.dart';
 import 'package:shopapp/components/custom_button.dart';
 import 'package:shopapp/components/custom_text_input.dart';
+import 'package:shopapp/utils/application_state.dart';
 import 'package:shopapp/utils/custom_theme.dart';
 import 'package:shopapp/utils/login_data.dart';
 
@@ -40,7 +40,31 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
-  void loginButtonPressed() {}
+  loginError(FirebaseAuthException e) {
+    if (e.message != null) {
+      setState(() {
+        _loadingButton = false;
+      });
+      //need to show alert
+    }
+  }
+
+  void loginButtonPressed() {
+    setState(() {
+      _loadingButton = true;
+    });
+    ApplicationState applicationState =
+        Provider.of<ApplicationState>(context, listen: false);
+
+    if (mapEquals(data, LoginData.signUp)) {
+      applicationState.signUp(
+          _emailController.text, _passwordController.text, loginError);
+    } else {
+      applicationState.signIn(
+          _emailController.text, _passwordController.text, loginError);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(left: 40, bottom: 40),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 25),
                     child: Text(
                       data["heading"] as String,
                       style: const TextStyle(
@@ -69,12 +93,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ],
               ),
-              Text(
-                data["subHeading"] as String,
-                style: const TextStyle(
-                  color: Colors.grey,
-                  fontSize: 15,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                child: Text(
+                  data["subHeading"] as String,
+                  style: const TextStyle(
+                    color: Colors.grey,
+                    fontSize: 15,
+                  ),
                 ),
+              ),
+              const SizedBox(
+                height: 20,
               ),
               model(data, _emailController, _passwordController),
               Row(

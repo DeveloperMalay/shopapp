@@ -15,10 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final data = ["1", "2"];
   @override
   Widget build(BuildContext context) {
-    onCardPress() {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const LoginScreen()));
-    }
+    onCardPress() {}
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 5),

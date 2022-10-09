@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:shopapp/utils/custom_theme.dart';
 
 class CustomTextInput extends StatelessWidget {
@@ -24,7 +21,7 @@ class CustomTextInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(bottom: 16),
-      child: Column(children: [
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Padding(
           padding: const EdgeInsets.only(left: 20.0, bottom: 8.0),
           child: Text(
@@ -36,7 +33,7 @@ class CustomTextInput extends StatelessWidget {
           height: 56,
           child: TextField(
             controller: textEditingController,
-            obscureText: !password,
+            obscureText: password,
             enableSuggestions: !password,
             autocorrect: !password,
             decoration: InputDecoration(
